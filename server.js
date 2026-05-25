@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -13,4 +12,19 @@ app.get('/generate-qr', (req, res) => {
     res.json({ success: true, qrUrl });
 });
 
-app.listen(process.env.PORT || 3000);
+// Verification API
+app.post('/verify', (req, res) => {
+    const { session_id, user } = req.body;
+    // Add your verification logic here
+    res.json({ success: true });
+});
+
+// Health check (required by Render)
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
